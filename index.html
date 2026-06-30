@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="fr"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Dashboard Clockify - Prépa HEC&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Chart.js via CDN --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Style minimaliste --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>* {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Segoe UI', Roboto, system-ui, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f8f9fc;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 30px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #1e293b;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 1200px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>h1 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.subtitle {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #64748b;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left: 4px solid #3b82f6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding-left: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f1f5f9;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 0 8px 8px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.grid {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: 1fr 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 860px) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.grid {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>grid-template-columns: 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 24px 20px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #e9edf4;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card h3 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 0.03em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #64748b;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.kpi-grid {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.kpi {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f8fafc;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 16px 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #eef2f6;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.kpi .value {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #0f172a;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.kpi .label {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #64748b;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.kpi .badge {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 2px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.badge.green {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #dcfce7;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #166534;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.badge.red {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #fee2e2;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #991b1b;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.badge.orange {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #fed7aa;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #9a3412;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chart-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 240px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chart-container.pie {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 220px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 280px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.footer {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #94a3b8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-top: 1px solid #e9edf4;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding-top: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.data-editor {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f1f5f9;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 16px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 20px 0 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Courier New', monospace;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>white-space: pre-wrap;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>word-break: break-all;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px dashed #94a3b8;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.data-editor strong {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #0f172a;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #3b82f6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px 18px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #2563eb;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.inline-code {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #eef2f6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 2px 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: monospace;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1">&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;📊 Dashboard Clockify&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="subtitle"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Semaine du 13 au 19 avril 2026 · Objectif : &lt;strong&gt;10h/jour&lt;/strong&gt; ·</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Total : &lt;strong&gt;29h30&lt;/strong&gt; sur 50h visées (59%).</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- KPI --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card" style="margin-bottom:24px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;📈 Indicateurs clés&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="kpi-grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="kpi"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="value"&gt;29:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="label"&gt;Total travaillé&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="kpi"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="value"&gt;4h13&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="label"&gt;Moyenne / jour&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="badge red"&gt;-5h47 vs objectif&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="kpi"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="value"&gt;59%&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="label"&gt;Objectif atteint&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="badge orange"&gt;10h/jour visé&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="kpi"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="value"&gt;14h16&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="label"&gt;Matière la plus travaillée&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="badge green"&gt;HGG&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Graphiques --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Carte 1 : Barres par jour --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;📅 Temps par jour (heures)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="chart-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;canvas id="chartJour"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="margin-top:12px;font-size:13px;color:#64748b;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Ligne rouge = objectif 10h · ⚠️ samedi et dimanche sous 4h</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Carte 2 : Camembert matières --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;🧩 Répartition par matière&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="chart-container pie"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;canvas id="chartMatiere"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="margin-top:8px;font-size:13px;color:#64748b;text-align:center;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span style="background:#3b82f6;display:inline-block;width:10px;height:10px;border-radius:4px;"&gt;&lt;/span&gt; Maths 40,4% ·</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span style="background:#f59e0b;display:inline-block;width:10px;height:10px;border-radius:4px;"&gt;&lt;/span&gt; HGG 48,4% ·</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span style="background:#10b981;display:inline-block;width:10px;height:10px;border-radius:4px;"&gt;&lt;/span&gt; Allemand 11,2%</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Carte 3 : Barres cumulées (évolution) --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;📈 Cumul hebdomadaire (vs objectif cumulé)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="chart-container" style="height:200px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;canvas id="chartCumul"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Section données modifiables --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card" style="margin-top:24px;background:#f8fafc;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;✏️ Modifier les données (mise à jour automatique)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p style="font-size:14px;color:#475569;margin-bottom:8px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Changez les valeurs ci-dessous, puis cliquez sur &lt;strong&gt;« Mettre à jour »&lt;/strong&gt;.</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="data-editor" id="dataEditor"&gt;</p>
+<p class="p1">&lt;strong&gt;// Données par jour (heures décimales)&lt;/strong&gt;</p>
+<p class="p1">const jours = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];</p>
+<p class="p1">const durees = [6.00, 5.27, 5.80, 5.14, 5.92, 3.28, 1.72];</p>
+<p class="p1">const objectifQuotidien = 10;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;strong&gt;// Données par matière (heures décimales)&lt;/strong&gt;</p>
+<p class="p1">const matieres = ['Maths', 'HGG', 'Allemand'];</p>
+<p class="p1">const tempsMatieres = [11.92, 14.27, 3.32];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn" id="updateBtn"&gt;🔄 Mettre à jour&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span style="margin-left:16px;font-size:13px;color:#94a3b8;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>⚡ Les graphiques se rafraîchissent instantanément</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="footer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Dashboard généré par DeepSeek · Données Clockify du 13 au 19 avril 2026</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>(function() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- DONNÉES INITIALES (identiques à celles affichées dans l'éditeur) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let jours = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let durees = [6.00, 5.27, 5.80, 5.14, 5.92, 3.28, 1.72];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let objectifQuotidien = 10;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let matieres = ['Maths', 'HGG', 'Allemand'];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let tempsMatieres = [11.92, 14.27, 3.32];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- RÉFÉRENCES VERS LES CANVAS ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ctxJour = document.getElementById('chartJour').getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ctxMatiere = document.getElementById('chartMatiere').getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ctxCumul = document.getElementById('chartCumul').getContext('2d');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let chartJour, chartMatiere, chartCumul;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- COULEURS ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const bleu = '#3b82f6';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const orange = '#f59e0b';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const vert = '#10b981';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const rouge = '#ef4444';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const gris = '#94a3b8';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- FONCTION POUR CRÉER LES GRAPHIQUES ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function buildCharts() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 1. Graphique par jour (barres)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (chartJour) chartJour.destroy();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>chartJour = new Chart(ctxJour, {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type: 'bar',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>labels: jours,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>datasets: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>label: 'Temps travaillé (h)',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>data: durees,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>backgroundColor: durees.map(d =&gt; d &gt;= objectifQuotidien ? vert : bleu),</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderColor: durees.map(d =&gt; d &gt;= objectifQuotidien ? vert : bleu),</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderWidth: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderRadius: 6,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>barPercentage: 0.6,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>label: 'Objectif 10h',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>data: Array(jours.length).fill(objectifQuotidien),</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>type: 'line',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderColor: rouge,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderWidth: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderDash: [6, 4],</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>pointRadius: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>fill: false,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>tension: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>responsive: true,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>maintainAspectRatio: false,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>plugins: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>legend: { display: true, labels: { boxWidth: 12, padding: 12, font: { size: 11 } } },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>tooltip: { callbacks: { label: (ctx) =&gt; `${ctx.parsed.y.toFixed(2)} h` } }</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>scales: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>y: {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>beginAtZero: true,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>max: Math.max(Math.max(...durees) + 2, 12),</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>ticks: { callback: (v) =&gt; v + 'h' }</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 2. Camembert matières</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (chartMatiere) chartMatiere.destroy();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const couleursMatiere = [bleu, orange, vert];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>chartMatiere = new Chart(ctxMatiere, {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type: 'doughnut',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>labels: matieres,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>datasets: [{</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>data: tempsMatieres,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>backgroundColor: couleursMatiere,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>borderColor: '#fff',</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>borderWidth: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>responsive: true,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>maintainAspectRatio: false,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>plugins: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>legend: {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>position: 'bottom',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>labels: { boxWidth: 10, padding: 10, font: { size: 12 } }</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>tooltip: {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>callbacks: {</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>label: (ctx) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>const total = ctx.dataset.data.reduce((a,b) =&gt; a+b, 0);</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>const pct = ((ctx.parsed / total) * 100).toFixed(1);</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>return `${ctx.label}: ${ctx.parsed.toFixed(2)}h (${pct}%)`;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>cutout: '60%',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 3. Cumul hebdomadaire</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (chartCumul) chartCumul.destroy();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const cumulReel = [];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const cumulObjectif = [];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let sumReel = 0, sumObj = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; jours.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>sumReel += durees[i];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>sumObj += objectifQuotidien;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>cumulReel.push(parseFloat(sumReel.toFixed(2)));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>cumulObjectif.push(parseFloat(sumObj.toFixed(2)));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>chartCumul = new Chart(ctxCumul, {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type: 'line',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>labels: jours,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>datasets: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>label: 'Cumul réel (h)',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>data: cumulReel,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderColor: bleu,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>backgroundColor: 'rgba(59,130,246,0.08)',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>fill: true,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>tension: 0.2,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>pointRadius: 4,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>pointBackgroundColor: bleu,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>label: 'Cumul objectif (h)',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>data: cumulObjectif,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderColor: rouge,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderDash: [6, 4],</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>backgroundColor: 'transparent',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>tension: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>pointRadius: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>pointBackgroundColor: rouge,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderWidth: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>responsive: true,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>maintainAspectRatio: false,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>plugins: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>legend: { display: true, labels: { boxWidth: 12, padding: 12, font: { size: 11 } } },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>tooltip: {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>callbacks: {</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>label: (ctx) =&gt; `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}h`,</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>footer: (items) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>const idx = items[0].dataIndex;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>const ecart = cumulReel[idx] - cumulObjectif[idx];</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>return `Écart: ${ecart &gt; 0 ? '+' : ''}${ecart.toFixed(2)}h`;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>scales: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>y: { beginAtZero: true, ticks: { callback: (v) =&gt; v + 'h' } }</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- METTRE À JOUR LES DONNÉES DEPUIS L'ÉDITEUR ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateDataFromEditor() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const editor = document.getElementById('dataEditor');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const text = editor.innerText;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Extraction des tableaux via eval (safe car environnement contrôlé)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// On extrait ce qui est après "const jours = " et avant le ";"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const joursMatch = text.match(/jours\s*=\s*\[([^\]]*)\]/);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const dureesMatch = text.match(/durees\s*=\s*\[([^\]]*)\]/);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const objMatch = text.match(/objectifQuotidien\s*=\s*([\d.]+)/);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const matieresMatch = text.match(/matieres\s*=\s*\[([^\]]*)\]/);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const tempsMatieresMatch = text.match(/tempsMatieres\s*=\s*\[([^\]]*)\]/);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (joursMatch) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const raw = joursMatch[1].split(',').map(s =&gt; s.trim().replace(/['"]/g, ''));</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (raw.length === 7) jours = raw;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (dureesMatch) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const raw = dureesMatch[1].split(',').map(s =&gt; parseFloat(s.trim()));</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (raw.every(v =&gt; !isNaN(v)) &amp;&amp; raw.length === 7) durees = raw;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (objMatch) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const val = parseFloat(objMatch[1]);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (!isNaN(val) &amp;&amp; val &gt; 0) objectifQuotidien = val;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (matieresMatch) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const raw = matieresMatch[1].split(',').map(s =&gt; s.trim().replace(/['"]/g, ''));</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (raw.length === 3) matieres = raw;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tempsMatieresMatch) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const raw = tempsMatieresMatch[1].split(',').map(s =&gt; parseFloat(s.trim()));</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (raw.every(v =&gt; !isNaN(v)) &amp;&amp; raw.length === 3) tempsMatieres = raw;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Mise à jour des KPI (simplifiée)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const total = durees.reduce((a,b) =&gt; a+b, 0);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const totalObj = objectifQuotidien * 7;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const pct = (total / totalObj * 100);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.querySelector('.kpi-grid .kpi:first-child .value').textContent = formatHeures(total);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.querySelector('.kpi-grid .kpi:nth-child(2) .value').textContent = formatHeures(total/7);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.querySelector('.kpi-grid .kpi:nth-child(3) .value').textContent = pct.toFixed(0) + '%';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Matière la plus travaillée</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const maxIdx = tempsMatieres.indexOf(Math.max(...tempsMatieres));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.querySelector('.kpi-grid .kpi:nth-child(4) .value').textContent = formatHeures(tempsMatieres[maxIdx]);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.querySelector('.kpi-grid .kpi:nth-child(4) .badge').textContent = matieres[maxIdx];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Reconstruire les graphiques</p>
+<p class="p1"><span class="Apple-converted-space">                </span>buildCharts();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Retour visuel</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const btn = document.getElementById('updateBtn');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.textContent = '✅ Mis à jour !';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; { btn.textContent = '🔄 Mettre à jour'; }, 1500);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch(e) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert('Erreur dans les données. Vérifiez le format (ex: [6.0, 5.27, ...])');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.warn(e);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- UTILITAIRE : formater les heures ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function formatHeures(h) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const heures = Math.floor(h);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const minutes = Math.round((h - heures) * 60);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return heures + 'h' + (minutes &lt; 10 ? '0' : '') + minutes;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- BOUTON DE MISE À JOUR ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('updateBtn').addEventListener('click', updateDataFromEditor);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- INITIALISATION ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>buildCharts();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Rendre l'éditeur modifiable ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('dataEditor').setAttribute('contenteditable', 'true');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- METTRE À JOUR VIA CTRL+ENTRÉE ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('dataEditor').addEventListener('keydown', (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if ((e.ctrlKey || e.metaKey) &amp;&amp; e.key === 'Enter') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>e.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>updateDataFromEditor();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>console.log('✅ Dashboard Clockify chargé. Modifiez les données et cliquez sur "Mettre à jour".');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>})();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
